@@ -4,7 +4,7 @@
 **Author:** Adib Hasan Avik  
 **Version:** 1.0  
 **Status:** Approved / Architecture Baseline  
-**Technology Stack:** ASP.NET Core MVC (.NET 8/9), EF Core, SQL Server, MediatR, Serilog, Mapster, Docker  
+**Technology Stack:** ASP.NET Core MVC (.NET 10), EF Core, SQL Server, MediatR, Serilog, Mapster, Docker  
 
 ---
 
