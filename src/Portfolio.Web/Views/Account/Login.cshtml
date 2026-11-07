@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Admin Login";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+            <div class="card info-card">
+                <div class="card-body p-4">
+                    <h1 class="h4 fw-bold mb-4 text-center">Admin Login</h1>
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+                    <form asp-controller="Account" asp-action="Login" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email</label>
+                            <input id="loginEmail" name="email" class="form-control" autocomplete="username" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input id="loginPassword" name="password" type="password" class="form-control" autocomplete="current-password" required />
+                        </div>
+                        <div class="form-check mb-3">
+                            <input id="rememberMe" name="rememberMe" type="checkbox" class="form-check-input" value="true" />
+                            <label for="rememberMe" class="form-check-label">Remember me</label>
+                        </div>
+                        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                        <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

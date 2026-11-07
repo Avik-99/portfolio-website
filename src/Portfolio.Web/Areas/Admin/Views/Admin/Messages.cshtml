@@ -1,0 +1,47 @@
+@model IReadOnlyList<ContactMessageDto>
+@{
+    ViewData["Title"] = "Contact Messages — Admin";
+}
+
+<div class="container py-4">
+    <h1 class="h3 fw-bold mb-4">Contact Messages</h1>
+
+    @if (Model.Count == 0)
+    {
+        <p class="text-body-secondary">No messages yet.</p>
+    }
+
+    <div class="accordion shadow-sm" id="messageAccordion">
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            var message = Model[i];
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button @(i == 0 ? "" : "collapsed") bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#message-@message.Id">
+                        <span class="fw-semibold me-2">@message.SenderName</span>
+                        @if (message.IsRead)
+                        {
+                            <span class="badge text-bg-light">Read</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-warning">New</span>
+                        }
+                        <span class="text-body-secondary small ms-2 d-none d-md-inline">@message.Subject — @message.SubmittedAtUtc.ToString("yyyy-MM-dd HH:mm") UTC</span>
+                    </button>
+                </h2>
+                <div id="message-@message.Id" class="accordion-collapse collapse @(i == 0 ? "show" : "")" data-bs-parent="#messageAccordion">
+                    <div class="accordion-body">
+                        <div class="mb-2 small text-body-secondary">
+                            <div><strong>Email:</strong> @message.SenderEmail</div>
+                            <div><strong>Subject:</strong> @message.Subject</div>
+                            <div><strong>Received:</strong> @message.SubmittedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</div>
+                        </div>
+                        <hr />
+                        <p class="mb-0" style="white-space: pre-line;">@message.MessageBody</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

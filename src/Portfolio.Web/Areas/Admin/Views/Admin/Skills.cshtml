@@ -1,0 +1,69 @@
+@model IReadOnlyList<SkillDto>
+@{
+    ViewData["Title"] = "Skills — Admin";
+}
+
+<div class="container py-4">
+    <h1 class="h3 fw-bold mb-4">Skills</h1>
+
+    @if (TempData["SuccessMessage"] is not null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] is not null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <div class="card info-card mb-4"><div class="card-body">
+                <h5 class="fw-semibold mb-3">Add Skill</h5>
+                <form asp-area="Admin" asp-controller="Admin" asp-action="CreateSkill" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label class="form-label" for="Name">Name</label>
+                        <input id="Name" name="Name" class="form-control" maxlength="100" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Category" class="form-label">Category</label>
+                        <select id="Category" name="Category" class="form-select" asp-items="Html.GetEnumSelectList<SkillCategory>()"></select>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="IconClass" class="form-label">Icon class</label>
+                            <input id="IconClass" name="IconClass" class="form-control" placeholder="bi-code-slash" />
+                        </div>
+                        <div class="col-6">
+                            <label for="DisplayOrder" class="form-label">Display order</label>
+                            <input id="DisplayOrder" name="DisplayOrder" type="number" class="form-control" value="0" min="0" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Skill</button>
+                </form>
+            </div></div>
+        </div>
+        <div class="col-lg-7">
+            @if (Model.Count == 0)
+            {
+                <p class="text-body-secondary">No skills yet.</p>
+            }
+            <div class="list-group shadow-sm">
+                @foreach (var skill in Model)
+                {
+                    <div class="list-group-item bg-transparent py-2 d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="fw-semibold">@skill.Name</span>
+                            <span class="text-body-secondary small ms-2">@skill.CategoryName</span>
+                        </div>
+                        <form asp-area="Admin" asp-controller="Admin" asp-action="DeleteSkill" asp-route-id="@skill.Id" method="post"
+                              onsubmit="return confirm('Delete skill @skill.Name?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

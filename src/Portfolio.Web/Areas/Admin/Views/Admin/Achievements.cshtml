@@ -1,0 +1,65 @@
+@model IReadOnlyList<AchievementDto>
+@{
+    ViewData["Title"] = "Achievements — Admin";
+}
+
+<div class="container py-4">
+    <h1 class="h3 fw-bold mb-4">Achievements</h1>
+
+    @if (TempData["SuccessMessage"] is not null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] is not null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <div class="card info-card mb-4"><div class="card-body">
+                <h5 class="fw-semibold mb-3">Add Achievement</h5>
+                <form asp-area="Admin" asp-controller="Admin" asp-action="CreateAchievement" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label for="Title" class="form-label">Title</label>
+                        <input id="Title" name="Title" class="form-control" maxlength="200" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">Description</label>
+                        <textarea id="Description" name="Description" class="form-control" rows="3" maxlength="1000" required></textarea>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="AchievementDate" class="form-label">Date</label>
+                            <input id="AchievementDate" name="AchievementDate" type="date" class="form-control" required />
+                        </div>
+                        <div class="col-6">
+                            <label for="DisplayOrder" class="form-label">Display order</label>
+                            <input id="DisplayOrder" name="DisplayOrder" type="number" class="form-control" value="0" min="0" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Achievement</button>
+                </form>
+            </div></div>
+        </div>
+        <div class="col-lg-7">
+            @if (Model.Count == 0)
+            {
+                <p class="text-body-secondary">No achievements yet.</p>
+            }
+            <div class="list-group shadow-sm">
+                @foreach (var achievement in Model)
+                {
+                    <div class="list-group-item bg-transparent py-2">
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-semibold">@achievement.Title</span>
+                            <span class="text-body-secondary small">@achievement.AchievementDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="text-body-secondary small">@achievement.Description</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+@model ProjectFormViewModel
+@{
+    ViewData["Title"] = Model.IsEdit ? "Edit Project — Admin" : "Create Project — Admin";
+}
+
+<div class="container py-4">
+    <h1 class="h3 fw-bold mb-4">@(Model.IsEdit ? "Edit Project" : "Create Project")</h1>
+
+    <form asp-area="Admin" asp-controller="Admin" method="post"
+          asp-action="@(Model.IsEdit ? "EditProject" : "CreateProject")"
+          asp-route-id="@(Model.IsEdit ? Model.Id : (Guid?)null)">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <div class="card info-card mb-4"><div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Category" class="form-label"></label>
+                    <input asp-for="Category" class="form-control" placeholder="e.g. Full-Stack Web Application" />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="LiveDemoUrl" class="form-label"></label>
+                    <input asp-for="LiveDemoUrl" class="form-control" />
+                    <span asp-validation-for="LiveDemoUrl" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="GithubUrl" class="form-label"></label>
+                    <input asp-for="GithubUrl" class="form-control" />
+                    <span asp-validation-for="GithubUrl" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="ImageUrl" class="form-label"></label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="DisplayOrder" class="form-label"></label>
+                    <input asp-for="DisplayOrder" type="number" class="form-control" />
+                    <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <div class="form-check">
+                        <input asp-for="IsFeatured" class="form-check-input" />
+                        <label asp-for="IsFeatured" class="form-check-label"></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="TechnicalHighlightsText" class="form-label"></label>
+                    <textarea asp-for="TechnicalHighlightsText" class="form-control font-monospace" rows="4"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="TechStackText" class="form-label"></label>
+                    <textarea asp-for="TechStackText" class="form-control font-monospace" rows="4" placeholder="ASP.NET Core&#10;EF Core&#10;Docker"></textarea>
+                </div>
+            </div>
+        </div></div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary px-4">Save</button>
+            <a class="btn btn-outline-secondary" asp-area="Admin" asp-controller="Admin" asp-action="Projects">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

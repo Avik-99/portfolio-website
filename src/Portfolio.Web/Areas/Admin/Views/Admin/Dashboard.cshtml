@@ -1,0 +1,92 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container py-4">
+    <h1 class="h3 fw-bold mb-4">Dashboard</h1>
+
+    @if (TempData["SuccessMessage"] is not null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card info-card"><div class="card-body">
+                <h6 class="text-primary text-uppercase tracking-wide">Total Projects</h6>
+                <p class="h2 fw-bold mb-0">@Model.TotalProjects</p>
+            </div></div>
+        </div>
+        <div class="col-md-4">
+            <div class="card info-card"><div class="card-body">
+                <h6 class="text-primary text-uppercase tracking-wide">Featured Projects</h6>
+                <p class="h2 fw-bold mb-0">@Model.FeaturedProjects</p>
+            </div></div>
+        </div>
+        <div class="col-md-4">
+            <div class="card info-card"><div class="card-body">
+                <h6 class="text-primary text-uppercase tracking-wide">Unread Messages</h6>
+                <p class="h2 fw-bold mb-0">@Model.UnreadMessages</p>
+            </div></div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card info-card">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3">Recent Projects</h5>
+                    @if (Model.Projects.Count == 0)
+                    {
+                        <p class="text-body-secondary mb-0">No projects yet.</p>
+                    }
+                    <ul class="list-group list-group-flush">
+                        @foreach (var project in Model.Projects.Take(5))
+                        {
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center">
+                                <span>@project.Title <span class="text-body-secondary">— @project.Category</span></span>
+                                @if (project.IsFeatured)
+                                {
+                                    <span class="badge text-bg-primary">Featured</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                    <a class="btn btn-sm btn-outline-primary mt-3" asp-area="Admin" asp-controller="Admin" asp-action="Projects">Manage projects</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card info-card">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3">Latest Contact Messages</h5>
+                    @if (Model.Messages.Count == 0)
+                    {
+                        <p class="text-body-secondary mb-0">No messages yet.</p>
+                    }
+                    <ul class="list-group list-group-flush">
+                        @foreach (var message in Model.Messages.Take(5))
+                        {
+                            <li class="list-group-item bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-semibold">@message.SenderName</span>
+                                    @if (message.IsRead)
+                                    {
+                                        <span class="badge text-bg-light">Read</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge text-bg-warning">New</span>
+                                    }
+                                </div>
+                                <div class="text-body-secondary small text-truncate">@message.Subject</div>
+                            </li>
+                        }
+                    </ul>
+                    <a class="btn btn-sm btn-outline-primary mt-3" asp-area="Admin" asp-controller="Admin" asp-action="Messages">View all messages</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

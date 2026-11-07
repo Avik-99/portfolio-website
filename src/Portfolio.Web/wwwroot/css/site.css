@@ -1,0 +1,89 @@
+:root {
+    --site-radius: 0.75rem;
+}
+
+.tracking-wide {
+    letter-spacing: 0.06em;
+}
+
+body {
+    padding-top: 4.2rem;
+    scroll-behavior: smooth;
+}
+
+section[id] {
+    scroll-margin-top: 4.5rem;
+}
+
+.site-nav {
+    background-color: var(--bs-body-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.site-footer {
+    background-color: var(--bs-body-bg);
+}
+
+.bg-section {
+    background-color: var(--bs-secondary-bg);
+    transition: background-color 0.15s ease-in-out;
+}
+
+.hero {
+    min-height: 55vh;
+    background:
+        radial-gradient(60rem 30rem at 85% -10%, color-mix(in srgb, var(--bs-primary) 14%, transparent), transparent),
+        linear-gradient(180deg, var(--bs-secondary-bg) 0%, var(--bs-body-bg) 55%);
+}
+
+.hero-badge {
+    width: 14rem;
+    height: 14rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.5rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--bs-primary) 18%, transparent), transparent);
+    border: 1px solid var(--bs-border-color);
+}
+
+.info-card,
+.skill-card,
+.project-card {
+    border-radius: var(--site-radius);
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.05);
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.skill-card:hover,
+.project-card:hover {
+    transform: translateY(-0.2rem);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08);
+}
+
+.skill-badge {
+    font-weight: 500;
+}
+
+.project-image {
+    height: 10rem;
+    border-radius: var(--site-radius) var(--site-radius) 0 0;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--bs-border-color);
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -0.56rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-top: 1.5rem;
+    border-radius: 50%;
+    background: var(--bs-primary);
+    border: 2px solid var(--bs-body-bg);
+}

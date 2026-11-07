@@ -1,0 +1,28 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# Local tooling & IDE state
+.git/
+.gitattributes
+.gitignore
+.vs/
+.vscode/
+.idea/
+
+# Planning docs are not part of the image
+Docs/
+*.md
+
+# Local runtime artifacts
+logs/
+*.log
+
+# Docker assets themselves are unnecessary inside the build context
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# OS junk
+Thumbs.db
+.DS_Store

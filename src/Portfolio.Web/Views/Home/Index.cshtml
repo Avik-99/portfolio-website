@@ -1,0 +1,255 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Adib Hasan Avik — Full-Stack .NET Developer";
+}
+
+<section id="home" class="hero py-5">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-8">
+                <p class="text-uppercase text-primary fw-semibold mb-2 tracking-wide">Full-Stack .NET Developer &middot; ASP.NET Core Specialist</p>
+                <h1 class="display-3 fw-bold mb-3">Adib Hasan Avik</h1>
+                <p class="lead text-body-secondary mb-4">
+                    Building scalable, secure, and maintainable web applications using modern .NET technologies
+                    and software engineering principles.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="#projects" class="btn btn-primary btn-lg px-4">Explore Projects</a>
+                    <a href="/assets/resume.pdf" class="btn btn-outline-primary btn-lg px-4" download>Download Resume</a>
+                    <a href="https://github.com/Avik-99" class="btn btn-outline-secondary btn-lg px-3" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.linkedin.com/" class="btn btn-outline-secondary btn-lg px-3" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="mailto:adibhasanavik99&#64;gmail.com" class="btn btn-outline-secondary btn-lg px-3">Email</a>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="hero-badge mx-auto" aria-hidden="true">
+                    <span class="display-1 fw-bold text-primary">AA</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-3">About Me</h2>
+                <p class="text-body-secondary">
+                    I am a full-stack .NET developer focused on Clean Architecture, CQRS, and secure, testable
+                    enterprise-grade applications. This portfolio itself is engineered with ASP.NET Core MVC,
+                    EF Core, MediatR, and automated unit tests — the same standards I bring to production systems.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="card h-100 info-card">
+                            <div class="card-body">
+                                <h6 class="text-primary text-uppercase tracking-wide">Education</h6>
+                                <p class="mb-1 fw-semibold">B.Sc. in Computer Science &amp; Engineering</p>
+                                <p class="text-body-secondary mb-0">University of Global Village (UGV), Barisal</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card h-100 info-card">
+                            <div class="card-body">
+                                <h6 class="text-primary text-uppercase tracking-wide">Professional Training</h6>
+                                <p class="mb-1 fw-semibold">Full Stack ASP.NET Core Web Development</p>
+                                <p class="text-body-secondary mb-0">DevSkill &mdash; Batch 13</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="py-5 bg-section">
+    <div class="container">
+        <h2 class="fw-bold mb-4">Technical Skills</h2>
+        @if (Model.SkillsCategoryGrouped.Count == 0)
+        {
+            <p class="text-body-secondary">Skills will appear here once they are added via the admin dashboard.</p>
+        }
+        <div class="row g-4">
+            @foreach (var group in Model.SkillsCategoryGrouped)
+            {
+                <div class="col-md-6 col-xl-4">
+                    <div class="card h-100 skill-card">
+                        <div class="card-body">
+                            <h5 class="card-title fw-semibold mb-3">@group.Key</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach (var skill in group.Value)
+                                {
+                                    <span class="badge text-bg-light skill-badge">@(skill.IconClass is null ? skill.Name : $"{skill.Name}")</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="py-5">
+    <div class="container">
+        <h2 class="fw-bold mb-4">Featured Projects</h2>
+        @if (Model.FeaturedProjects.Count == 0)
+        {
+            <p class="text-body-secondary">Projects will appear here once they are added via the admin dashboard.</p>
+        }
+        <div class="row g-4">
+            @foreach (var project in Model.FeaturedProjects)
+            {
+                <div class="col-lg-6">
+                    <div class="card h-100 project-card">
+                        <div class="project-image bg-section d-flex align-items-center justify-content-center">
+                            <span class="text-body-secondary fw-semibold">@project.Category</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title fw-semibold mb-0">@project.Title</h5>
+                                <span class="badge text-bg-primary">@project.Category</span>
+                            </div>
+                            <p class="card-text text-body-secondary">@project.Description</p>
+
+                            @if (project.TechnicalHighlights.Count > 0)
+                            {
+                                <h6 class="small text-uppercase text-primary tracking-wide">Technical Highlights</h6>
+                                <ul class="mb-3 ps-3 text-body-secondary">
+                                    @foreach (var highlight in project.TechnicalHighlights)
+                                    {
+                                        <li>@highlight</li>
+                                    }
+                                </ul>
+                            }
+
+                            @if (project.TechStack.Count > 0)
+                            {
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    @foreach (var tech in project.TechStack)
+                                    {
+                                        <span class="badge text-bg-secondary">@tech</span>
+                                    }
+                                </div>
+                            }
+
+                            <div class="d-flex gap-2">
+                                @if (!string.IsNullOrWhiteSpace(project.LiveDemoUrl))
+                                {
+                                    <a href="@project.LiveDemoUrl" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live Demo</a>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(project.GithubUrl))
+                                {
+                                    <a href="@project.GithubUrl" class="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener">Source Code</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="achievements" class="py-5 bg-section">
+    <div class="container">
+        <h2 class="fw-bold mb-4">Engineering Achievements</h2>
+        @if (Model.Achievements.Count == 0)
+        {
+            <p class="text-body-secondary">Achievements will appear here once they are added via the admin dashboard.</p>
+        }
+        <div class="timeline">
+            @foreach (var achievement in Model.Achievements)
+            {
+                <div class="timeline-item mb-4">
+                    <div class="card info-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-1">
+                                <h5 class="fw-semibold mb-0">@achievement.Title</h5>
+                                <span class="text-body-secondary small">@achievement.AchievementDate.ToString("MMMM yyyy")</span>
+                            </div>
+                            <p class="text-body-secondary mb-0">@achievement.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <h2 class="fw-bold mb-2">Contact</h2>
+                <p class="text-body-secondary mb-4">
+                    Have an opportunity or a project in mind? Send a message — emails are delivered to
+                    adibhasanavik99&#64;gmail.com.
+                </p>
+                <form id="contactForm" asp-action="SendMessage" asp-controller="Contact" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="contactName">Name</label>
+                            <input id="contactName" name="Name" class="form-control" maxlength="150" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="contactEmail">Email</label>
+                            <input id="contactEmail" name="Email" type="email" class="form-control" maxlength="200" required />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="contactSubject">Subject</label>
+                            <input id="contactSubject" name="Subject" class="form-control" maxlength="200" required />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="contactMessage">Message</label>
+                            <textarea id="contactMessage" name="Message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <div class="d-none" aria-hidden="true">
+                            <label>Leave this field empty</label>
+                            <input type="text" name="_hp" tabindex="-1" autocomplete="off" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary px-5">Send Message</button>
+                    <div id="contactAlert" class="alert mt-3 d-none" role="alert"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        (function () {
+            'use strict';
+            var form = document.getElementById('contactForm');
+            var alertBox = document.getElementById('contactAlert');
+            if (!form) { return; }
+
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+                alertBox.className = 'alert mt-3 d-none';
+
+                var payload = new URLSearchParams(new FormData(form));
+                try {
+                    var response = await fetch(form.action, { method: 'POST', body: payload });
+                    var result = await response.json();
+                    alertBox.textContent = result.message;
+                    alertBox.className = result.success
+                        ? 'alert alert-success mt-3'
+                        : 'alert alert-danger mt-3';
+                    if (result.success) { form.reset(); }
+                } catch (error) {
+                    alertBox.textContent = 'Message could not be sent. Please try again later.';
+                    alertBox.className = 'alert alert-danger mt-3';
+                }
+                alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        })();
+    </script>
+}
